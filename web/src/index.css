@@ -1,0 +1,92 @@
+@import 'tailwindcss';
+
+/*
+  Striqs design tokens — taken from the logo: charcoal ground, ice-blue mark.
+  Ice blue is the brand/action colour; green means "this counted" (valid reps,
+  activity calendar); amber and red are coaching cues only.
+*/
+@theme {
+  --font-display: 'Outfit Variable', 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Figtree Variable', 'Figtree', ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink: #181c21;
+  --color-court: #20262d;
+  --color-court-hi: #29303a;
+  --color-line: #343d48;
+  --color-chalk: #eef3f8;
+  --color-mist: #a3b0bf;
+  --color-dim: #6e7b8a;
+  --color-accent: #c6dcf2;
+  --color-accent-hi: #dceaf8;
+  --color-go: #3ddc97;
+  --color-warn: #ffc857;
+  --color-flag: #ff6b5b;
+  --color-sky: #b7a8ff;
+
+  --color-heat-0: #262d36;
+  --color-heat-1: #1d5848;
+  --color-heat-2: #237d5f;
+  --color-heat-3: #2ead79;
+  --color-heat-4: #3ddc97;
+
+  --radius-card: 20px;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-ink font-sans text-chalk antialiased;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@utility safe-bottom {
+  padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);
+}
+
+@utility safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* The one orchestrated motion moment: a counted rep pops the number. */
+@keyframes rep-pop {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.rep-pop {
+  animation: rep-pop 380ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rep-pop {
+    animation: none;
+  }
+  * {
+    transition-duration: 0ms !important;
+  }
+}
